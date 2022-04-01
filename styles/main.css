@@ -1,6 +1,11 @@
+:root{
+    --primary-default: #3064E7;
+}
+
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -8,8 +13,134 @@ body {
     height: 100vh;
 }
 
+.landing {
+    width: 100%;
+    height: 100%;
+
+    padding: 25px;
+
+    background-color: rgba(255,255,255, 0.75);
+    backdrop-filter: blur(10px);
+    
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
 #map {
     width: 100vw;
     height: 100vh;
     background-color: white;
+    position: absolute;
+    z-index: 0;
+}
+
+#app {
+    position: relative;
+}
+
+.landButtContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.button {
+    width: 200px;
+    height: 50px;
+    background-color: var(--primary-default);
+    color: white;
+    border: 3px solid var(--primary-default);
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.button p {
+    font-family: Overpass;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.button:hover{
+    background-color: rgba(255, 255, 255, 0);
+    color: var(--primary-default);
+    cursor: pointer;
+}
+
+.buttIcon{
+    fill: orange;
+}
+
+.weatherContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.weatherAndNameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.weatherCityTitle {
+    font-size: 51.96px;
+    font-family: Overpass;
+    font-weight: 700;
+    color: var(--primary-default);
+}
+
+.weatherInformationTitle{
+    font-size: 16px;
+    font-family: Overpass;
+    font-weight: 400;
+    color: var(--primary-default);
+}
+
+.weatherInformationDetail {
+    font-size: 20.25px;
+    font-family: Overpass;
+    font-weight: 700;
+    color: var(--primary-default);
+}
+
+.weatherInformationDetailContainer {
+    width: 54px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.weatherInformationContainer {
+    display: flex;
+    gap: 25px;
+}
+
+.red{
+    background-color:red;
+    color: red;
+}
+
+.blue{
+    background-color:blue;
+    color: blue;
+}
+
+.orange{
+    background-color:orange;
+    color: orange;
 }

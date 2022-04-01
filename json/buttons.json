@@ -1,0 +1,22 @@
+{
+    "buttons": [
+        {
+            "id": 0,
+            "name": "findBike",
+            "text": "Finn Sykkel",
+            "icon": "./assets/svg/iconSearch.svg"
+        },
+        {
+            "id": 1,
+            "name": "findParking",
+            "text": "Finn Parkering",
+            "icon": "./assets/svg/iconPark.svg"
+        },
+        {
+            "id": 2,
+            "name": "showMap",
+            "text": "Utforsk Kartet",
+            "icon": "./assets/svg/iconMap.svg"
+        }
+    ]
+}
