@@ -15,7 +15,7 @@
         {
             "id": 2,
             "name": "showMap",
-            "text": "Utforsk Kartet",
+            "text": "Utforsk Kart",
             "icon": "./assets/svg/iconMap.svg"
         }
     ]

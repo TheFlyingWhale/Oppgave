@@ -72,7 +72,7 @@ body {
 .button p {
     font-family: Overpass;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .button:hover{
@@ -131,19 +131,4 @@ body {
 .weatherInformationContainer {
     display: flex;
     gap: 25px;
-}
-
-.red{
-    background-color:red;
-    color: red;
-}
-
-.blue{
-    background-color:blue;
-    color: blue;
-}
-
-.orange{
-    background-color:orange;
-    color: orange;
 }

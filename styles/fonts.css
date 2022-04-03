@@ -11,6 +11,12 @@
 }
 
 @font-face {
+    font-family: Overpass;
+    src: url('/assets/fonts/Overpass-SemiBold.ttf');
+    font-weight: 600;
+}
+
+@font-face {
     font-family: 'Overpass';
     src: url('/assets/fonts/Overpass-Bold.ttf');
     font-weight: 700;

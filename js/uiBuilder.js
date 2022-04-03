@@ -30,6 +30,7 @@ function buildWeather(parent){
     const weatherIcon = document.createElement('img');
     weatherIcon.src = './assets/svg/weatherIcon.svg';
     weatherAndNameContainer.appendChild(weatherIcon);
+    
     const nameElement = document.createElement('p');
     nameElement.textContent = 'Oslo';
     nameElement.classList.add('weatherCityTitle');
@@ -49,14 +50,17 @@ function buildWeather(parent){
 function buildWeatherDetail(parent, detailTitle, detailData, specialChar){
     const container = document.createElement('div');
     container.classList.add('weatherInformationDetailContainer');
+
     const title = document.createElement('p');
     title.textContent = detailTitle;
     title.classList.add('weatherInformationTitle');
     container.appendChild(title);
+
     const detail = document.createElement('p');
     detail.textContent = detailData + specialChar;
     detail.classList.add('weatherInformationDetail');
     container.appendChild(detail);
+
     parent.appendChild(container);
 }
 
