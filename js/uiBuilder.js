@@ -71,7 +71,7 @@ function buildWeatherDetail(parent, detailTitle, detailData, specialChar){
  */
 function buildLogo(parent){
     const logoElement = document.createElement('img');
-    logoElement.src = './assets/svg/logo.svg';
+    logoElement.src = './assets/svg/logoText.svg';
     parent.appendChild(logoElement);
 }
 
