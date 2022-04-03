@@ -44,10 +44,10 @@ function createMarkerCurrentLocation(mapObject) {
             .setLngLat([position.coords.longitude, position.coords.latitude])
             .addTo(mapObject);
 
-            mapObject.flyTo({
-                center: [position.coords.longitude, position.coords.latitude], 
-                zoom: 14
-            });
+            // mapObject.flyTo({
+            //     center: [position.coords.longitude, position.coords.latitude], 
+            //     zoom: 14
+            // });
         });
     } else {
         alert('Geolocation is not activated or supported');

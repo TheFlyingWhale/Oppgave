@@ -1,12 +1,11 @@
 const app = document.querySelector('#app');
 import { map } from './js/map.js';
-import { getStations } from './js/stations.js';
-import { buildMap, buildLanding } from './js/uiBuilder.js';
+import stations, { getStations } from './js/stations.js';
+import uiBuilder, { buildMap, buildLanding } from './js/uiBuilder.js';
 
 const main = async () => {
-    buildMap(document.getElementById('app'));
-    buildLanding(document.getElementById('app'));
-    const stations = await getStations();
+    uiBuilder(app);
+    // stations();
     map();
     // console.log(stations);
 }

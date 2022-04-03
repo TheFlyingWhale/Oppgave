@@ -13,7 +13,7 @@ body {
     height: 100vh;
 }
 
-.landing {
+#landing {
     width: 100%;
     height: 100%;
 
@@ -24,7 +24,7 @@ body {
     -webkit-backdrop-filter: blur(10px);
     
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     right: 0;
 
@@ -34,12 +34,49 @@ body {
     justify-content: space-between;
 }
 
+.landingHidden {
+    display: block !important;
+    top: 100% !important;
+}
+
+@keyframes hideLanding {
+    0% {
+        top: 0%;
+    }
+    
+    100%{
+        top: 100%;
+    }
+}
+
+@keyframes showLanding {
+    0% {
+        top: 100%;
+    }
+
+    100%{
+        top: 0%;
+    }
+}
+
 #map {
     width: 100vw;
     height: 100vh;
     background-color: white;
     position: absolute;
     z-index: 0;
+}
+
+#mapOverlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.mapOverlayInteractiveElement {
+    pointer-events: auto;
 }
 
 #app {

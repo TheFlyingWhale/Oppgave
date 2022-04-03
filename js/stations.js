@@ -1,5 +1,6 @@
 export default function stations(){
-    console.log('This is stations default export');
+    getStations();
+    // getAvailability();
 }
 
 export async function getStations(){
@@ -8,6 +9,7 @@ export async function getStations(){
     const result = await response.json();
 
     const stations = result.data.stations;
+    console.log(stations);
     return stations;
 }
 

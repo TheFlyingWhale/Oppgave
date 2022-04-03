@@ -1,16 +1,22 @@
-function main(){
-    console.log('hello world');
+import attachAnimationHandler, { hideLanding, showLanding } from './landingAnimationHandler.js';
+
+export default function uiBuilder(parent){
+    buildMap(parent);
+    buildLanding(parent);
+    buildMapOverlay(parent);
 }
 
 export const buildLanding = (parent) =>{
     const landing = document.createElement('div');
-    landing.classList.add('landing');
+    landing.id = 'landing';
 
-    buildLogo(landing);
+    buildLogoContainer(landing);
 
-    buildWeather(landing);
+    buildWeatherContainer(landing);
 
-    buildButtonElement(landing);
+    buildButtonContainer(landing);
+
+    attachAnimationHandler(landing);
 
     parent.appendChild(landing);
 }
@@ -21,7 +27,20 @@ export const buildMap = (parent) => {
     parent.appendChild(map);
 }
 
-function buildWeather(parent){
+export const buildMapOverlay = (parent) => {
+    const mapOverlay = document.createElement('div');
+    mapOverlay.id = 'mapOverlay';
+
+    const showLandingButton = buildButton('button');
+    showLandingButton.classList.add('mapOverlayInteractiveElement');
+    showLandingButton.addEventListener('click', showLanding);
+
+    mapOverlay.appendChild(showLandingButton);
+
+    parent.appendChild(mapOverlay);
+}
+
+function buildWeatherContainer(parent){
     const container = document.createElement('div');
     container.classList.add('weatherContainer');
 
@@ -69,7 +88,7 @@ function buildWeatherDetail(parent, detailTitle, detailData, specialChar){
  * 
  * @param {object} parent 
  */
-function buildLogo(parent){
+function buildLogoContainer(parent){
     const logoElement = document.createElement('img');
     logoElement.src = './assets/svg/logoText.svg';
     parent.appendChild(logoElement);
@@ -81,7 +100,7 @@ function buildLogo(parent){
  * 
  * @param {object} parent 
  */
-async function buildButtonElement(parent){
+async function buildButtonContainer(parent){
     const buttElement = document.createElement('div');
     buttElement.classList.add('landButtContainer');
     //fetches button information
@@ -89,6 +108,7 @@ async function buildButtonElement(parent){
     .then(response => response.json());
     //creates buttons basted on button information
     buttons.buttons.forEach(button => {
+        buttElement.addEventListener('click', hideLanding);
         buttElement.appendChild(buildButton(button.text, button.icon));
     })
     parent.appendChild(buttElement);
@@ -116,5 +136,6 @@ function buildButton(text, image){
     textEl.textContent = text ? text : 'Placeholder';
     mainEl.appendChild(textEl);
     mainEl.classList.add('button');
+
     return mainEl;
 }
