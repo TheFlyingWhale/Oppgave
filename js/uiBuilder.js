@@ -8,7 +8,7 @@ import { hideDetails } from './locationDetailsHandler.js';
  */
 export default function uiBuilder(parent){
     buildMap(parent);
-    buildLanding(parent);
+    // buildLanding(parent);
     buildMapOverlay(parent);
 }
 
@@ -222,9 +222,9 @@ export function buildLocationDataDisplay(address, avaBikes, avaParks) {
     detailsContainer.appendChild(buildLocationDetail('./assets/svg/iconAvaBikes.svg', 'Sykler', avaBikes));
     detailsContainer.appendChild(buildLocationDetail('./assets/svg/iconAvaPark.svg', 'Parkering', avaParks));
 
-    const showDirectionButton = buildButton('Vis vei', './assets/svg/iconDirection.svg');
-    showDirectionButton.addEventListener('click', hideDetails);
-    element.appendChild(showDirectionButton);
+    // const showDirectionButton = buildButton('Vis vei', './assets/svg/iconDirection.svg');
+    // showDirectionButton.addEventListener('click', hideDetails);
+    // element.appendChild(showDirectionButton);
 
     return element;
 }

@@ -34,6 +34,10 @@ function createMarkerPointer(station, mapObject){
 
     el.addEventListener('click', () => {
         displayDetails(station.address, station.bikes_available, station.docks_available);
+        mapObject.flyTo({
+            center: [station.lon, station.lat],
+            zoom: 15
+        });
     });
 
     return new mapboxgl.Marker(el)
