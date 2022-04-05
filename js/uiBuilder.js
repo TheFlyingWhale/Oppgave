@@ -21,13 +21,13 @@ export default function uiBuilder(parent){
  * 
  * @param {HTMLElement} parent 
  */
-export const buildLanding = (parent) =>{
+export const buildLanding = async (parent) =>{
     const landing = document.createElement('div');
     landing.id = 'landing';
 
     buildLogoContainer(landing);
 
-    buildWeatherContainer(landing);
+    await buildWeatherContainer(landing);
 
     buildButtonContainer(landing);
 
