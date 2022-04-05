@@ -8,7 +8,7 @@ import { hideDetails } from './locationDetailsHandler.js';
  */
 export default function uiBuilder(parent){
     buildMap(parent);
-    // buildLanding(parent);
+    buildLanding(parent);
     buildMapOverlay(parent);
 }
 
