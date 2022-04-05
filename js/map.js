@@ -1,17 +1,27 @@
-export function map() {
+import { displayDetails } from './locationDetailsHandler.js';
+
+export async function map(stations) {
     mapboxgl.accessToken = 'pk.eyJ1IjoibXJmbHl3aGFsZWd1eSIsImEiOiJjazNoZGFpOGswMWJsM2xsMXp6N3ZnM25pIn0.qS7D5FBXfYUqswpNrCDkYw';
 
     const map = new mapboxgl.Map({
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [10.7522, 59.9139], // starting position [lng, lat]
-        zoom: 11 // starting zoom
+        zoom: 12.5 // starting zoom
     });
 
-    const marker = createMarkerCurrentLocation(map);
+    createMarkerCurrentLocation(map);
+    
+    populateMap(stations, map);
 }
 
-function createMarkerPointer(mapObject){
+function populateMap(stations, mapObject){
+    stations.forEach(station => {
+        createMarkerPointer(station, mapObject);
+    })
+}
+
+function createMarkerPointer(station, mapObject){
     const el = document.createElement('div');
     const width = 32;
     const height = 50;
@@ -22,8 +32,12 @@ function createMarkerPointer(mapObject){
     el.style.height = `${height}px`;
     el.style.backgroundSize = '100%';
 
+    el.addEventListener('click', () => {
+        displayDetails(station.address, station.bikes_available, station.docks_available);
+    });
+
     return new mapboxgl.Marker(el)
-    .setLngLat([10.7522, 59.9139])
+    .setLngLat([station.lon, station.lat])
     .addTo(mapObject);
 }
 
@@ -44,10 +58,10 @@ function createMarkerCurrentLocation(mapObject) {
             .setLngLat([position.coords.longitude, position.coords.latitude])
             .addTo(mapObject);
 
-            // mapObject.flyTo({
-            //     center: [position.coords.longitude, position.coords.latitude], 
-            //     zoom: 14
-            // });
+            mapObject.flyTo({
+                center: [position.coords.longitude, position.coords.latitude], 
+                zoom: 14
+            });
         });
     } else {
         alert('Geolocation is not activated or supported');

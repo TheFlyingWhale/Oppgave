@@ -3,26 +3,26 @@ let landingElement = null;
 
 export default function attachAnimationHandler(element){
     landingElement = element;
-
+    
     landingElement.addEventListener('animationstart', () => {
         if(!displayState){
-            landingElement.classList.toggle('landingHidden');
+            landingElement.classList.remove('landingHidden');
         }
     });
 
     landingElement.addEventListener('animationend', () => {
         if(displayState) {
-            landingElement.classList.toggle('landingHidden');
+            landingElement.classList.add('landingHidden');
         }
 
         displayState = !displayState;
     });
 }
 
-export function hideLanding(){
+export function triggerHideAnimation(){
     landingElement.style.animation = 'hideLanding 0.35s ease-in-out';
 }
 
-export function showLanding(){
+export function triggerShowAnimation(){
     landingElement.style.animation = 'showLanding 0.35s ease-in-out';
 }

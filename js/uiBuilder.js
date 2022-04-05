@@ -1,11 +1,23 @@
-import attachAnimationHandler, { hideLanding, showLanding } from './landingAnimationHandler.js';
+import attachAnimationHandler, { triggerHideAnimation, triggerShowAnimation } from './landingAnimationHandler.js';
+import { hideDetails } from './locationDetailsHandler.js';
 
+/** uiBuilder
+ * Builds all the UI layers and applies them to the given parent
+ * 
+ * @param {object} parent 
+ */
 export default function uiBuilder(parent){
     buildMap(parent);
     buildLanding(parent);
     buildMapOverlay(parent);
 }
 
+/** buildLanding
+ *  Creates the landing layer and applies it to the given parent 
+ *  The landing layer acts as the menu of the application
+ * 
+ * @param {object} parent 
+ */
 export const buildLanding = (parent) =>{
     const landing = document.createElement('div');
     landing.id = 'landing';
@@ -21,25 +33,41 @@ export const buildLanding = (parent) =>{
     parent.appendChild(landing);
 }
 
+/** buildMap
+ *  Creates the map layer and applies it to the given parent
+ * 
+ * @param {object} parent 
+ */
 export const buildMap = (parent) => {
     const map = document.createElement('div');
-    map.setAttribute('id', 'map');
+    map.id = 'map';
+    // map.addEventListener('click', hideDetails);
     parent.appendChild(map);
 }
 
+/** buildMapOverlay
+ *  Creates the map overlay and applies it to the given parent
+ * 
+ * @param {object} parent 
+ */
 export const buildMapOverlay = (parent) => {
     const mapOverlay = document.createElement('div');
     mapOverlay.id = 'mapOverlay';
 
-    const showLandingButton = buildButton('button');
+    const showLandingButton = buildButton('show menu');
     showLandingButton.classList.add('mapOverlayInteractiveElement');
-    showLandingButton.addEventListener('click', showLanding);
+    showLandingButton.addEventListener('click', triggerShowAnimation);
 
     mapOverlay.appendChild(showLandingButton);
 
     parent.appendChild(mapOverlay);
 }
 
+/** buildWeatherContainer
+ *  Creates the weather container, calls buildWeatherDetail to fill it with information then applies container to the given parent
+ * 
+ * @param {object} parent 
+ */
 function buildWeatherContainer(parent){
     const container = document.createElement('div');
     container.classList.add('weatherContainer');
@@ -66,6 +94,14 @@ function buildWeatherContainer(parent){
     parent.appendChild(container);
 }
 
+/** buildWeatherDetail
+ *  Creates weather detail with title and data based on given data then applies it to the given parent
+ * 
+ * @param {object} parent 
+ * @param {string} detailTitle 
+ * @param {string} detailData 
+ * @param {string} specialChar 
+ */
 function buildWeatherDetail(parent, detailTitle, detailData, specialChar){
     const container = document.createElement('div');
     container.classList.add('weatherInformationDetailContainer');
@@ -108,7 +144,7 @@ async function buildButtonContainer(parent){
     .then(response => response.json());
     //creates buttons basted on button information
     buttons.buttons.forEach(button => {
-        buttElement.addEventListener('click', hideLanding);
+        buttElement.addEventListener('click', triggerHideAnimation, false);
         buttElement.appendChild(buildButton(button.text, button.icon));
     })
     parent.appendChild(buttElement);
@@ -138,4 +174,32 @@ function buildButton(text, image){
     mainEl.classList.add('button');
 
     return mainEl;
+}
+
+export function buildLocationDataDisplay(address, avaBikes, avaParks) {
+    const element = document.createElement('div');
+    element.id = 'locationDetails';
+
+    const topContainer = document.createElement('div');
+    topContainer.classList.add('locationDetailTopContainer');
+
+    const closeDisplayElement = document.createElement('button');
+    closeDisplayElement.classList.add('closeLocationDetailsButton')
+    closeDisplayElement.addEventListener('click', hideDetails);
+    topContainer.appendChild(closeDisplayElement);
+    element.appendChild(topContainer);
+
+    const addressElement = document.createElement('p');
+    addressElement.textContent = `Adresse: ${address}`;
+    element.appendChild(addressElement);
+
+    const availableBikesElement = document.createElement('p');
+    availableBikesElement.textContent = `Tilgjengelige sykler: ${avaBikes}`;
+    element.appendChild(availableBikesElement);
+
+    const availableParksElement = document.createElement('p');
+    availableParksElement.textContent = `Tilgjengelige parkeringer: ${avaParks}`;
+    element.appendChild(availableParksElement);
+
+    return element;
 }

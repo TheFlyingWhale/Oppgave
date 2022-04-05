@@ -35,7 +35,7 @@ body {
 }
 
 .landingHidden {
-    display: block !important;
+    display: none;
     top: 100% !important;
 }
 
@@ -73,14 +73,60 @@ body {
     position: absolute;
     z-index: 1;
     pointer-events: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
 }
 
-.mapOverlayInteractiveElement {
+#mapOverlay * {
     pointer-events: auto;
+}
+
+.marker:hover {
+    cursor: pointer;
+}
+
+#locationDetails {
+    width: 300px;
+    height: 300px;
+
+    padding: 25px;
+
+    background-color: white;
+
+    border-radius: 15px;
+    box-shadow: 0px 5px 30px rgba(25, 25, 25, 0.15);
+}
+
+.locationDetailTopContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.closeLocationDetailsButton {
+    background-color: white;
+    border: none;
+    width: 14px;
+    height: 14px;
+    background-image: url('../assets/svg/iconCloseDefault.svg');
+    cursor: pointer;
+}
+
+.closeLocationDetailsButton:hover {
+
+}
+
+.closeLocationDetailsButton:active {
+
 }
 
 #app {
     position: relative;
+    overflow: hidden;
 }
 
 .landButtContainer {
@@ -113,7 +159,7 @@ body {
 }
 
 .button:hover{
-    background-color: rgba(255, 255, 255, 0);
+    background-color: white;
     color: var(--primary-default);
     cursor: pointer;
 }
