@@ -54,11 +54,18 @@ export const buildMapOverlay = (parent) => {
     const mapOverlay = document.createElement('div');
     mapOverlay.id = 'mapOverlay';
 
-    const showLandingButton = buildButton('show menu');
-    showLandingButton.classList.add('mapOverlayInteractiveElement');
-    showLandingButton.addEventListener('click', triggerShowAnimation);
+    const mapDetailsContainer = document.createElement('div');
+    mapDetailsContainer.id = 'mapOverlayDetailsContainer'
+    mapOverlay.appendChild(mapDetailsContainer);
 
-    mapOverlay.appendChild(showLandingButton);
+    const mapInteractionContainer = document.createElement('div');
+    mapInteractionContainer.id = 'mapOverlayInteractionContainer'
+    
+    const showLandingButton = buildMenuButton();
+    showLandingButton.addEventListener('click', triggerShowAnimation);
+    mapInteractionContainer.appendChild(showLandingButton);
+
+    mapOverlay.appendChild(mapInteractionContainer);
 
     parent.appendChild(mapOverlay);
 }
@@ -241,5 +248,17 @@ function buildLocationDetail(icon, title, data){
     element.appendChild(iconEl);
     element.appendChild(titleEl);
     element.appendChild(detailEl);
+    return element;
+}
+
+function buildMenuButton(){
+    const element = document.createElement('div');
+    element.id = 'menuButton';
+
+    const buttonIcon = document.createElement('img');
+    buttonIcon.src = './assets/svg/logoSmall.svg';
+
+    element.appendChild(buttonIcon);
+    
     return element;
 }
