@@ -4,7 +4,7 @@ import { hideDetails } from './locationDetailsHandler.js';
 /** uiBuilder
  * Builds all the UI layers and applies them to the given parent
  * 
- * @param {object} parent 
+ * @param {HTMLElement} parent 
  */
 export default function uiBuilder(parent){
     buildMap(parent);
@@ -16,7 +16,7 @@ export default function uiBuilder(parent){
  *  Creates the landing layer and applies it to the given parent 
  *  The landing layer acts as the menu of the application
  * 
- * @param {object} parent 
+ * @param {HTMLElement} parent 
  */
 export const buildLanding = (parent) =>{
     const landing = document.createElement('div');
@@ -36,7 +36,7 @@ export const buildLanding = (parent) =>{
 /** buildMap
  *  Creates the map layer and applies it to the given parent
  * 
- * @param {object} parent 
+ * @param {HTMLElement} parent 
  */
 export const buildMap = (parent) => {
     const map = document.createElement('div');
@@ -48,7 +48,7 @@ export const buildMap = (parent) => {
 /** buildMapOverlay
  *  Creates the map overlay and applies it to the given parent
  * 
- * @param {object} parent 
+ * @param {HTMLElement} parent 
  */
 export const buildMapOverlay = (parent) => {
     const mapOverlay = document.createElement('div');
@@ -66,7 +66,7 @@ export const buildMapOverlay = (parent) => {
 /** buildWeatherContainer
  *  Creates the weather container, calls buildWeatherDetail to fill it with information then applies container to the given parent
  * 
- * @param {object} parent 
+ * @param {HTMLElement} parent 
  */
 function buildWeatherContainer(parent){
     const container = document.createElement('div');
@@ -97,7 +97,7 @@ function buildWeatherContainer(parent){
 /** buildWeatherDetail
  *  Creates weather detail with title and data based on given data then applies it to the given parent
  * 
- * @param {object} parent 
+ * @param {HTMLElement} parent 
  * @param {string} detailTitle 
  * @param {string} detailData 
  * @param {string} specialChar 
@@ -122,7 +122,7 @@ function buildWeatherDetail(parent, detailTitle, detailData, specialChar){
 /** buildLogo
  * Builds the logo logo element, fills it with a logo and applies to the given parent
  * 
- * @param {object} parent 
+ * @param {HTMLElement} parent 
  */
 function buildLogoContainer(parent){
     const logoElement = document.createElement('img');
@@ -134,7 +134,7 @@ function buildLogoContainer(parent){
  * Creates the button container for the landing page
  * fills itself with button based on ./json/buttons
  * 
- * @param {object} parent 
+ * @param {HTMLElement} parent 
  */
 async function buildButtonContainer(parent){
     const buttElement = document.createElement('div');
@@ -158,7 +158,7 @@ async function buildButtonContainer(parent){
  * @param {string} image 
  * @returns button
  */
-function buildButton(text, image){
+function buildButton(text, image, cssClass){
     const mainEl = document.createElement('button');
     const textEl = document.createElement('p');
     const iconEl = document.createElement('img');
@@ -169,9 +169,14 @@ function buildButton(text, image){
         mainEl.appendChild(iconEl);
     }
 
+    if(cssClass){
+        mainEl.classList.add(cssClass);
+    } else {
+        mainEl.classList.add('button');
+    }
+
     textEl.textContent = text ? text : 'Placeholder';
     mainEl.appendChild(textEl);
-    mainEl.classList.add('button');
 
     return mainEl;
 }
@@ -189,17 +194,52 @@ export function buildLocationDataDisplay(address, avaBikes, avaParks) {
     topContainer.appendChild(closeDisplayElement);
     element.appendChild(topContainer);
 
+    const informationContainer = document.createElement('div');
+    informationContainer.classList.add('informationContainer');
+    element.appendChild(informationContainer);
+
+    const addressContainer = document.createElement('div');
+    addressContainer.classList.add('locationInformationAddressContainer ');
+    informationContainer.appendChild(addressContainer);
+
+
     const addressElement = document.createElement('p');
-    addressElement.textContent = `Adresse: ${address}`;
-    element.appendChild(addressElement);
+    addressElement.textContent = `${address}`;
+    addressElement.classList.add('locationDetailAddress');
+    addressContainer.appendChild(addressElement);
 
-    const availableBikesElement = document.createElement('p');
-    availableBikesElement.textContent = `Tilgjengelige sykler: ${avaBikes}`;
-    element.appendChild(availableBikesElement);
+    const detailsContainer = document.createElement('div');
+    informationContainer.appendChild(detailsContainer);
+    detailsContainer.classList.add('detailsContainer');
 
-    const availableParksElement = document.createElement('p');
-    availableParksElement.textContent = `Tilgjengelige parkeringer: ${avaParks}`;
-    element.appendChild(availableParksElement);
+    detailsContainer.appendChild(buildLocationDetail('./assets/svg/iconAvaBikes.svg', 'Sykler', avaBikes));
+    detailsContainer.appendChild(buildLocationDetail('./assets/svg/iconAvaPark.svg', 'Parkering', avaParks));
 
+    const showDirectionButton = buildButton('Vis vei', './assets/svg/iconDirection.svg');
+    showDirectionButton.addEventListener('click', hideDetails);
+    element.appendChild(showDirectionButton);
+
+    return element;
+}
+
+function buildLocationDetail(icon, title, data){
+    const element = document.createElement('div');
+    element.classList.add('detailContainer');
+
+    const iconEl = document.createElement('img');
+    iconEl.classList.add('detailIcon');
+    iconEl.src = icon;
+    
+    const titleEl = document.createElement('p');
+    titleEl.classList.add('detailTitle');
+    titleEl.textContent = title;
+
+    const detailEl = document.createElement('p');
+    detailEl.classList.add('detailData');
+    detailEl.textContent = data;
+
+    element.appendChild(iconEl);
+    element.appendChild(titleEl);
+    element.appendChild(detailEl);
     return element;
 }

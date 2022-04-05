@@ -1,5 +1,6 @@
 :root{
     --primary-default: #3064E7;
+    --primary-darker: #1B3882;
 }
 
 * {
@@ -99,6 +100,10 @@ body {
 
     border-radius: 15px;
     box-shadow: 0px 5px 30px rgba(25, 25, 25, 0.15);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .locationDetailTopContainer {
@@ -117,11 +122,63 @@ body {
 }
 
 .closeLocationDetailsButton:hover {
-
+    background-image: url('../assets/svg/iconCloseHover.svg');
 }
 
 .closeLocationDetailsButton:active {
+    background-image: url('../assets/svg/iconCloseActive.svg');
+}
 
+.locationDetailAddressContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.locationDetailAddress {
+    font-family: Overpass;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--primary-darker)
+}
+
+.informationContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 25px;
+}
+
+.detailsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.detailContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.detailIcon {
+    height: 21.33px;
+}
+
+.detailTitle {
+    font-family: Overpass;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--primary-darker);
+}
+
+.detailData {
+    font-family: Overpass;
+    font-size: 25.63px;
+    font-weight: 600;
+    color: var(--primary-darker);
 }
 
 #app {

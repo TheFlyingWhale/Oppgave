@@ -13,7 +13,7 @@ export default async function initializeStations(){
 }
 
 export async function fetchStations(){
-    const url = 'https://gbfs.urbansharing.com/oslobysykkel.no/station_information.json'
+    const url = 'https://gbfs.urbansharing.com/oslobysykkel.no/station_information.json';
     const response = await fetch(url);
     const result = await response.json();
 
@@ -21,7 +21,7 @@ export async function fetchStations(){
     return result.data.stations;
 }
 
-export async function fetchAvailability(saveTo){
+export async function fetchAvailability(){
     const url = 'https://gbfs.urbansharing.com/oslobysykkel.no/station_status.json';
     const response = await fetch(url);
     const result = await response.json();

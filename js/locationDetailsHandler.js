@@ -14,7 +14,6 @@ export function displayDetails(address, avaBikes, avaParks) {
 }
 
 export function hideDetails() {
-    console.log('triggered');
     if(displayState) {
         const mapOverlay = document.getElementById('mapOverlay');
         const detailsDisplay = document.getElementById('locationDetails');
