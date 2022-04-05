@@ -1,5 +1,6 @@
 import attachAnimationHandler, { triggerHideAnimation, triggerShowAnimation } from './landingAnimationHandler.js';
 import { hideDetails } from './locationDetailsHandler.js';
+import { fetchWeather } from './weather.js';
 
 /** uiBuilder
  * Builds all the UI layers and applies them to the given parent
@@ -7,6 +8,8 @@ import { hideDetails } from './locationDetailsHandler.js';
  * @param {HTMLElement} parent 
  */
 export default function uiBuilder(parent){
+    applyViewHeightFix();
+
     buildMap(parent);
     buildLanding(parent);
     buildMapOverlay(parent);
@@ -75,7 +78,7 @@ export const buildMapOverlay = (parent) => {
  * 
  * @param {HTMLElement} parent 
  */
-function buildWeatherContainer(parent){
+async function buildWeatherContainer(parent){
     const container = document.createElement('div');
     container.classList.add('weatherContainer');
 
@@ -91,11 +94,12 @@ function buildWeatherContainer(parent){
     weatherAndNameContainer.appendChild(nameElement);
     container.appendChild(weatherAndNameContainer);
 
+    const weather = await fetchWeather();
     const detailsContainer = document.createElement('div');
     detailsContainer.classList.add('weatherInformationContainer');
-    buildWeatherDetail(detailsContainer, 'Temperatur', '3', '°');
-    buildWeatherDetail(detailsContainer, 'Vind', '3', 'm/s');
-    buildWeatherDetail(detailsContainer, 'Regn', '3', 'mm');
+    buildWeatherDetail(detailsContainer, 'Temperatur', weather.temperature, '°');
+    buildWeatherDetail(detailsContainer, 'Vind', weather.wind, 'm/s');
+    buildWeatherDetail(detailsContainer, 'Regn', weather.rain, 'mm');
     container.appendChild(detailsContainer);
 
     parent.appendChild(container);
@@ -261,4 +265,17 @@ function buildMenuButton(){
     element.appendChild(buttonIcon);
     
     return element;
+}
+
+/** applyViewHeightFix
+ *  There are problems with vh on mobile devices, causing some elements to be hidden behind browser elements.
+ *  This function fixes that.
+ */
+function applyViewHeightFix(){
+    let vhf = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vhf}px`);
+    window.addEventListener('resize', () => {
+        let vhr = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vhr}px`);
+    });
 }
