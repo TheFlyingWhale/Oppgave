@@ -1,3 +1,8 @@
+/** fetchWeather
+ *  Fetches and returns weather from Norwegian Meteorological Institute
+ *  Fetches only the weather from Oslo
+ * @returns {object}
+ */
 export async function fetchWeather(){
     const url = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=59.91&lon=10.75';
     const response = await fetch(url);
