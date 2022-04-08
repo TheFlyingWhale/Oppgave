@@ -167,7 +167,7 @@ async function buildButtonContainer(parent){
  * 
  * @param {string} text 
  * @param {string} image 
- * @returns button
+ * @returns {htmlElement}
  */
 function buildButton(text, image, cssClass){
     const mainEl = document.createElement('button');
@@ -192,12 +192,13 @@ function buildButton(text, image, cssClass){
     return mainEl;
 }
 
-/**
+/** buildLocationDataDisplay
+ *  Creates and return the data display for a given location
  * 
  * @param {string} address 
  * @param {number} avaBikes 
  * @param {number} avaParks 
- * @returns 
+ * @returns {htmlElement}
  */
 export function buildLocationDataDisplay(address, avaBikes, avaParks) {
     const element = document.createElement('div');
@@ -236,6 +237,14 @@ export function buildLocationDataDisplay(address, avaBikes, avaParks) {
     return element;
 }
 
+/** buildLocationDetail
+ *  Creates and return location detail
+ * 
+ * @param {src} icon 
+ * @param {string} title 
+ * @param {integer} data 
+ * @returns 
+ */
 function buildLocationDetail(icon, title, data){
     const element = document.createElement('div');
     element.classList.add('detailContainer');
@@ -258,6 +267,11 @@ function buildLocationDetail(icon, title, data){
     return element;
 }
 
+/** buildMenuButton
+ *  Creates and return menu button
+ * 
+ * @returns {htmlElement}
+ */
 function buildMenuButton(){
     const element = document.createElement('div');
     element.id = 'menuButton';
