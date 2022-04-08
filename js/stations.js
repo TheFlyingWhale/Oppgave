@@ -5,13 +5,24 @@ let availableStations = undefined;
 //Contains all stations with merged station details and availability details
 let ripeStations = undefined;
 
+/** initializeStations
+ *  Fetches information regarding locations, details regarding locations, merges them and returns the merged data
+ * 
+ * @returns {array}
+ */
 export default async function initializeStations(){
     await fetchStations();
     await fetchAvailability();
     mergeStationData(unripeStations, availableStations);
+
     return ripeStations;
 }
 
+/** fetchStations
+ *  Fetches information regarding By-Sykkel stations and returns the result
+ * 
+ * @returns {array}
+ */
 export async function fetchStations(){
     const url = 'https://gbfs.urbansharing.com/oslobysykkel.no/station_information.json';
     const response = await fetch(url);
@@ -21,6 +32,11 @@ export async function fetchStations(){
     return result.data.stations;
 }
 
+/** fetchAvailability
+ *  Fetches data regarding By-Sykkel stations and returns the result
+ * 
+ * @returns {array}
+ */
 export async function fetchAvailability(){
     const url = 'https://gbfs.urbansharing.com/oslobysykkel.no/station_status.json';
     const response = await fetch(url);
@@ -30,6 +46,13 @@ export async function fetchAvailability(){
     return result.data.stations;
 }
 
+/** mergeStationData
+ *  Combines relevant data from two arrays and returns it 
+ * 
+ * @param {array} stations 
+ * @param {array} availability 
+ * @returns {array}
+ */
 function mergeStationData(stations, availability){
     const dataList = [];
 
