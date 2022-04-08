@@ -1,5 +1,9 @@
 import { displayDetails } from './locationDetailsHandler.js';
 
+/** map
+ *  Initializes the map and populates it with all given stations
+ * @param {array} stations 
+ */
 export async function map(stations) {
     mapboxgl.accessToken = 'pk.eyJ1IjoibXJmbHl3aGFsZWd1eSIsImEiOiJjazNoZGFpOGswMWJsM2xsMXp6N3ZnM25pIn0.qS7D5FBXfYUqswpNrCDkYw';
 
@@ -15,13 +19,25 @@ export async function map(stations) {
     populateMap(stations, map);
 }
 
-function populateMap(stations, mapObject){
+/** populateMap
+ *  Creates a marker for each station and applies it to the given parent
+ * 
+ * @param {array} stations 
+ * @param {htmlElement} parent 
+ */
+function populateMap(stations, parent){
     stations.forEach(station => {
-        createMarkerPointer(station, mapObject);
+        createMarkerPointer(station, parent);
     })
 }
 
-function createMarkerPointer(station, mapObject){
+/** createMarkerPointer
+ *  Creates a marker and applies it to the given parent
+ * 
+ * @param {object} station 
+ * @param {htmlElement} parent 
+ */
+function createMarkerPointer(station, parent){
     const el = document.createElement('div');
     const width = 32;
     const height = 50;
@@ -34,18 +50,22 @@ function createMarkerPointer(station, mapObject){
 
     el.addEventListener('click', () => {
         displayDetails(station.address, station.bikes_available, station.docks_available);
-        mapObject.flyTo({
+        parent.flyTo({
             center: [station.lon, station.lat],
             zoom: 15
         });
     });
 
-    return new mapboxgl.Marker(el)
+    new mapboxgl.Marker(el)
     .setLngLat([station.lon, station.lat])
-    .addTo(mapObject);
+    .addTo(parent);
 }
-
-function createMarkerCurrentLocation(mapObject) {
+/** createMarkerCurrentLocation
+ *  Creates a marker representing the user and applies it to given parent
+ * 
+ * @param {htmlElement} parent 
+ */
+function createMarkerCurrentLocation(parent) {
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(position => {
             const el = document.createElement('div');
@@ -60,9 +80,9 @@ function createMarkerCurrentLocation(mapObject) {
 
             const marker = new mapboxgl.Marker(el)
             .setLngLat([position.coords.longitude, position.coords.latitude])
-            .addTo(mapObject);
+            .addTo(parent);
 
-            mapObject.flyTo({
+            parent.flyTo({
                 center: [position.coords.longitude, position.coords.latitude], 
                 zoom: 14
             });
