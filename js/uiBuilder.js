@@ -192,6 +192,13 @@ function buildButton(text, image, cssClass){
     return mainEl;
 }
 
+/**
+ * 
+ * @param {string} address 
+ * @param {number} avaBikes 
+ * @param {number} avaParks 
+ * @returns 
+ */
 export function buildLocationDataDisplay(address, avaBikes, avaParks) {
     const element = document.createElement('div');
     element.id = 'locationDetails';
@@ -200,7 +207,7 @@ export function buildLocationDataDisplay(address, avaBikes, avaParks) {
     topContainer.classList.add('locationDetailTopContainer');
 
     const closeDisplayElement = document.createElement('button');
-    closeDisplayElement.classList.add('closeLocationDetailsButton')
+    closeDisplayElement.classList.add('closeLocationDetailsButton');
     closeDisplayElement.addEventListener('click', hideDetails);
     topContainer.appendChild(closeDisplayElement);
     element.appendChild(topContainer);
@@ -225,10 +232,6 @@ export function buildLocationDataDisplay(address, avaBikes, avaParks) {
 
     detailsContainer.appendChild(buildLocationDetail('./assets/svg/iconAvaBikes.svg', 'Sykler', avaBikes));
     detailsContainer.appendChild(buildLocationDetail('./assets/svg/iconAvaPark.svg', 'Parkering', avaParks));
-
-    // const showDirectionButton = buildButton('Vis vei', './assets/svg/iconDirection.svg');
-    // showDirectionButton.addEventListener('click', hideDetails);
-    // element.appendChild(showDirectionButton);
 
     return element;
 }

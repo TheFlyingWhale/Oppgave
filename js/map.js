@@ -71,20 +71,3 @@ function createMarkerCurrentLocation(mapObject) {
         alert('Geolocation is not activated or supported');
     }
 }
-
-function getUserLocation(){
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(getLngLat);
-    } else {
-        console.log('Geolocation is not activated or supported');
-    }
-}
-
-function getLngLat(position){
-    console.log(position);
-    const lng = position.coords.longitude;
-    const lat = position.coords.latitude;
-    console.log(`lng: ${lng}`);
-    console.log(`lat: ${lat}`);
-    return 'test'
-}
